@@ -15,16 +15,35 @@ class Grid {
   };
 
   populateGrid = () => {
-    for (let x = 0; x < this.cols; x++) {
-      for (let y = 0; y < this.rows; y++) {
-        let rand = floor(random(1));
-        let alive;
-        rand ? (alive = true) : (alive = false);
-        this.items[x][y] = new Cell(alive);
+    this.loopRunner((x, y) => {
+      let rand = floor(random(2));
+      let alive;
+      rand ? (alive = true) : (alive = false);
+      this.items[x][y] = new Cell(alive);
+    });
+  };
+
+  renderGrid = () => {
+    this.loopRunner((x, y) => {
+      let w = x * this.resolution;
+      let h = y * this.resolution;
+      if (this.items[x][y].alive) {
+        fill(255);
+        rect(w, h, this.resolution);
+      } else {
+        fill(0);
+        rect(w, h, this.resolution);
       }
-    }
-    print(this.items);
+    });
   };
 
   clicked = () => {};
+
+  loopRunner = (callback) => {
+    for (let x = 0; x < this.cols; x++) {
+      for (let y = 0; y < this.rows; y++) {
+        callback(x, y);
+      }
+    }
+  };
 }

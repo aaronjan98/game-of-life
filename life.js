@@ -5,7 +5,7 @@ function setup() {
   grid = new Grid(width, height);
   grid.make2DArray();
   grid.populateGrid();
-  console.log(grid);
+  grid.renderGrid();
 }
 
 function draw() {}
