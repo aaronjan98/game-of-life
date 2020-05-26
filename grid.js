@@ -24,9 +24,7 @@ class Grid {
   };
 
   renderGrid = () => {
-    this.loopRunner((x, y) => {
-      let w = x * this.resolution;
-      let h = y * this.resolution;
+    this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
         fill(255);
         rect(w, h, this.resolution);
@@ -37,12 +35,25 @@ class Grid {
     });
   };
 
-  clicked = () => {};
+  clicked = (mouseX, mouseY) => {
+    this.loopRunner((x, y, w, h) => {
+      if (
+        mouseX > w &&
+        mouseX < w + this.resolution &&
+        mouseY > h &&
+        mouseY < h + this.resolution
+      ) {
+        this.items[x][y].toggle();
+      }
+    });
+  };
 
   loopRunner = (callback) => {
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
-        callback(x, y);
+        let w = x * this.resolution;
+        let h = y * this.resolution;
+        callback(x, y, w, h);
       }
     }
   };

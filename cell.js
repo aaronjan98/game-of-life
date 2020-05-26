@@ -8,6 +8,10 @@ class Cell {
     this.alive = false;
   };
 
+  toggle = () => {
+    this.alive = !this.alive;
+  };
+
   age = () => {
     this.age++;
   };

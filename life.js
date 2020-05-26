@@ -10,4 +10,7 @@ function setup() {
 
 function draw() {}
 
-function makeGrid() {}
+function mousePressed() {
+  grid.clicked(mouseX, mouseY);
+  grid.renderGrid();
+}
