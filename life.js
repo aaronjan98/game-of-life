@@ -38,6 +38,7 @@ function windowResized() {
 
 // DOM stuff
 const playBtn = document.querySelector("#playback");
+const clearBtn = document.querySelector("#clear");
 
 playBtn.addEventListener("click", () => {
   isRunning = !isRunning;
@@ -46,4 +47,8 @@ playBtn.addEventListener("click", () => {
   } else {
     playBtn.textContent = "start";
   }
+});
+
+clearBtn.addEventListener("click", () => {
+  grid.clear();
 });

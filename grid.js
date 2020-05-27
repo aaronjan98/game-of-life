@@ -105,6 +105,13 @@ class Grid {
     this.rows = floor(this.height / this.resolution);
   };
 
+  clear = () => {
+    this.loopRunner((x, y) => {
+      this.items[x][y].kill();
+    });
+    this.renderGrid();
+  };
+
   loopRunner = (callback) => {
     for (let x = 0; x < this.cols; x++) {
       for (let y = 0; y < this.rows; y++) {
