@@ -1,16 +1,17 @@
 class Grid {
   constructor(width, height) {
-    this.resolution = 120;
+    this.resolution = 10;
     this.width = width;
     this.height = height;
     this.cols = floor(this.width / this.resolution);
     this.rows = floor(this.height / this.resolution);
     this.items = new Array(this.cols);
+    this.next = new Array(this.cols);
   }
 
-  make2DArray = () => {
+  make2DArray = (arr) => {
     for (let x = 0; x < this.cols; x++) {
-      this.items[x] = new Array(this.rows);
+      arr[x] = new Array(this.rows);
     }
   };
 
@@ -32,7 +33,7 @@ class Grid {
         fill(0);
         rect(w, h, this.resolution);
       }
-      this.debug(x, y, w, h);
+      // this.debug(x, y, w, h);
     });
   };
 
@@ -72,7 +73,30 @@ class Grid {
         }
       }
     });
-    print(this.items);
+  };
+
+  runSimulation = () => {
+    this.next = this.items;
+    this.loopRunner((x, y, w, h) => {
+      let cell = this.items[x][y];
+
+      // underpopulation
+      if (cell.alive && cell.neighborCount < 2) {
+        this.next[x][y] = new Cell(false);
+      }
+      // overpopulation
+      else if (cell.alive && cell.neighborCount > 3) {
+        this.next[x][y] = new Cell(false);
+      }
+      // reproduction
+      else if (!cell.alive && cell.neighborCount === 3) {
+        this.next[x][y] = new Cell(true);
+      }
+    });
+
+    // [this.items, this.next] = [this.next, this.items];
+
+    this.items = this.next;
   };
 
   loopRunner = (callback) => {
