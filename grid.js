@@ -94,10 +94,10 @@ class Grid {
       }
       // lives on
       else {
-        // only advance age once every 5 frames
+        // only advance age once every 5 frames (otherwise color animation is too fast)
         if (frameCount % 5 === 0) {
-          // clamp age at 180 (prevent it from going back towards red)
-          if (this.next[x][y].age <= 180) {
+          // clamp age at 270 (prevent it from going back towards red)
+          if (this.next[x][y].age <= 270) {
             this.next[x][y].age += 1;
           }
         }

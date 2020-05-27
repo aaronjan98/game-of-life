@@ -10,7 +10,7 @@ The [game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) is a s
 
 In this implementation, a randomly generated distribution of live cells is inserted into the grid. The player has the option of using the mouse to toggle the states (alive/dead) of the cells before starting the game, but as soon as it starts the player can no longer influence the simulation.
 
-Cells are colored based on their age - red cells are the youngest and cells more toward the blue end of the spectrum are older (with blue representing the oldest cells).
+Cells are colored based on their age - red cells are the youngest and cells more toward the blue end of the spectrum are older (with purple representing the oldest cells).
 
 The player also has the ability to "slow down time" by adjusting the speed of the simulation to more closely observe the behaviors of the simulation.
 
