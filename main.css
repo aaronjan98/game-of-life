@@ -22,6 +22,7 @@ html {
 body {
   font-family: "Fira Code", monospace;
   background-color: var(--background);
+  user-select: none;
 }
 
 #canvas {
@@ -87,7 +88,6 @@ button:hover {
   font-size: 4rem;
   color: var(--nearblack);
 }
-
 
 /* slider styles */
 input[type="range"]#speed {
