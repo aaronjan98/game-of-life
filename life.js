@@ -2,6 +2,7 @@ p5.disableFriendlyErrors = true;
 
 let grid;
 let cnv;
+let speed = null; // higher number = slower render speed
 let isRunning = false;
 
 function setup() {
@@ -17,7 +18,9 @@ function setup() {
 
 function draw() {
   if (isRunning) {
-    grid.runSimulation();
+    if (frameCount % speed === 0) {
+      grid.runSimulation();
+    }
   }
 }
 
@@ -37,6 +40,7 @@ function windowResized() {
 // DOM stuff
 const playBtn = document.querySelector("#playback");
 const clearBtn = document.querySelector("#clear");
+const speedSlider = document.querySelector("#speed");
 
 playBtn.addEventListener("click", () => {
   isRunning = !isRunning;
@@ -49,4 +53,14 @@ playBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   grid.clear();
+});
+
+// set initial speed
+// invert range (low values = high speeds)
+// 60 = max value + 1
+speed = 61 - speedSlider.value;
+
+speedSlider.addEventListener("input", (e) => {
+  speed = 61 - e.target.value;
+  print(speed);
 });
