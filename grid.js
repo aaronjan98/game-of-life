@@ -1,6 +1,6 @@
 class Grid {
   constructor(width, height) {
-    this.resolution = 10;
+    this.resolution = 5;
     this.width = width;
     this.height = height;
     this.cols = floor(this.width / this.resolution);
@@ -28,9 +28,6 @@ class Grid {
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
         fill(100);
-        rect(w, h, this.resolution);
-      } else {
-        fill(0);
         rect(w, h, this.resolution);
       }
       // this.debug(x, y, w, h);

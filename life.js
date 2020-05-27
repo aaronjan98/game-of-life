@@ -14,11 +14,13 @@ function setup() {
   grid.populateGrid();
   grid.countNeighbors();
   grid.renderGrid();
+  background(0);
 }
 
 function draw() {
   if (isRunning) {
     if (frameCount % speed === 0) {
+      background(0);
       grid.runSimulation();
       let gen = generation.textContent;
       generation.textContent = Number(gen) + 1;
@@ -64,12 +66,15 @@ playBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   grid.clear();
+  background(0);
   isRunning = false;
   playBtn.textContent = "start";
   generation.textContent = 0;
 });
 
 reseed.addEventListener("click", () => {
+  clear();
+  background(0);
   grid.reseed();
 });
 
