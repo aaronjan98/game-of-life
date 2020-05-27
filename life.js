@@ -25,9 +25,11 @@ function draw() {
 }
 
 function mousePressed() {
-  grid.clicked(mouseX, mouseY);
-  grid.countNeighbors();
-  grid.renderGrid();
+  if (!isRunning) {
+    grid.clicked(mouseX, mouseY);
+    grid.countNeighbors();
+    grid.renderGrid();
+  }
 }
 
 function windowResized() {
