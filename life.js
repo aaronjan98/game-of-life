@@ -30,8 +30,11 @@ function draw() {
 
 function mouseDragged() {
   if (!isRunning) {
-    grid.clicked(mouseX, mouseY);
-    grid.renderGrid();
+    // only run if mouse is within sketch bounds
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+      grid.clicked(mouseX, mouseY);
+      grid.renderGrid();
+    }
   }
 }
 
