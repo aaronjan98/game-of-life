@@ -20,6 +20,8 @@ function draw() {
   if (isRunning) {
     if (frameCount % speed === 0) {
       grid.runSimulation();
+      let gen = generation.textContent;
+      generation.textContent = Number(gen) + 1;
     }
   }
 }
@@ -43,6 +45,7 @@ function windowResized() {
 const playBtn = document.querySelector("#playback");
 const clearBtn = document.querySelector("#clear");
 const speedSlider = document.querySelector("#speed");
+const generation = document.querySelector("#generation");
 
 playBtn.addEventListener("click", () => {
   isRunning = !isRunning;
