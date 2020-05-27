@@ -26,17 +26,22 @@ function draw() {
   }
 }
 
-function mousePressed() {
+function mouseDragged() {
   if (!isRunning) {
     grid.clicked(mouseX, mouseY);
-    grid.countNeighbors();
     grid.renderGrid();
+  }
+}
+
+function mouseReleased() {
+  if (!isRunning) {
+    // don't bother counting neighbors until user drawing is complete
+    grid.countNeighbors();
   }
 }
 
 function windowResized() {
   resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
-  print(width, height);
   grid.resize(width, height);
   grid.renderGrid();
 }
@@ -75,5 +80,4 @@ speed = 61 - speedSlider.value;
 
 speedSlider.addEventListener("input", (e) => {
   speed = 61 - e.target.value;
-  print(speed);
 });
