@@ -10,12 +10,21 @@ class Grid {
   }
 
   init = () => {
+    this.setMinimumDensity();
     this.make2DArray(this.items);
     this.make2DArray(this.next);
     this.populateGrid();
     this.countNeighbors();
     background(0);
     this.renderGrid();
+  };
+
+  setMinimumDensity = () => {
+    if (this.cols * this.rows <= 10000) {
+      this.resolution = 3;
+      this.cols = floor(this.width / this.resolution);
+      this.rows = floor(this.height / this.resolution);
+    }
   };
 
   make2DArray = (arr) => {
