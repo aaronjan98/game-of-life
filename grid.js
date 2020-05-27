@@ -75,6 +75,7 @@ class Grid {
     });
   };
 
+  // @TODO account for cell ages
   runSimulation = () => {
     this.next = this.items;
     this.loopRunner((x, y, w, h) => {
@@ -94,9 +95,14 @@ class Grid {
       }
     });
 
-    // [this.items, this.next] = [this.next, this.items];
-
     this.items = this.next;
+  };
+
+  resize = (w, h) => {
+    this.width = w;
+    this.height = h;
+    this.cols = floor(this.width / this.resolution);
+    this.rows = floor(this.height / this.resolution);
   };
 
   loopRunner = (callback) => {

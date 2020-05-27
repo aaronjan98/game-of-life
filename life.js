@@ -1,9 +1,12 @@
 p5.disableFriendlyErrors = true;
 
 let grid;
+let cnv;
+let isRunning = false;
 
 function setup() {
-  createCanvas(windowWidth/2, windowHeight/2);
+  cnv = createCanvas(windowWidth / 2, windowHeight / 2);
+  cnv.parent("canvas");
   grid = new Grid(width, height);
   grid.make2DArray(grid.items);
   grid.make2DArray(grid.next);
@@ -13,13 +16,22 @@ function setup() {
 }
 
 function draw() {
-  grid.countNeighbors();
-  grid.runSimulation();
-  grid.renderGrid();
+  if (isRunning) {
+    grid.countNeighbors();
+    grid.runSimulation();
+    grid.renderGrid();
+  }
 }
 
 function mousePressed() {
   grid.clicked(mouseX, mouseY);
   grid.countNeighbors();
+  grid.renderGrid();
+}
+
+function windowResized() {
+  resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
+  print(width, height);
+  grid.resize(width, height);
   grid.renderGrid();
 }
