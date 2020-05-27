@@ -8,13 +8,25 @@
     <script src="https://cdn.jsdelivr.net/npm/p5@1.0.0/lib/p5.min.js"></script>
   </head>
   <body>
-    <h1>generation #<span id="generation">0</span></h1>
+    <div class="header">
+      <h3>conway's game of</h3>
+      <h1>LIFE</h1>
+    </div>
+
+    <h2>generation #<span id="generation">0</span></h2>
     <div id="canvas"></div>
-    <button id="playback">start</button>
-    <button id="clear">clear</button>
-    <button id="reseed">re-seed</button>
-    <label for="speed">simulation speed</label>
-    <input id="speed" type="range" min="1" max="60" step="1" value="60" />
+
+    <div class="controls-container">
+      <div class="controls">
+        <label for="speed">simulation speed</label>
+        <input id="speed" type="range" min="1" max="60" step="1" value="60" />
+        <div class="buttons">
+          <button id="playback">start</button>
+          <button id="clear">clear</button>
+          <button id="reseed">re-seed</button>
+        </div>
+      </div>
+    </div>
 
     <script src="cell.js"></script>
     <script src="grid.js"></script>
