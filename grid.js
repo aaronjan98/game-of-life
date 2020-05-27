@@ -62,14 +62,15 @@ class Grid {
           let col = (x + i + this.cols) % this.cols;
           let row = (y + j + this.rows) % this.rows;
 
-          // only count live neighbors
-          if (this.items[col][row].alive === true) {
-            this.items[x][y].neighborCount++;
+          // omit self from count
+          if (i !== 0 || j !== 0) {
+            // only count live neighbors
+            if (this.items[col][row].alive === true) {
+              this.items[x][y].neighborCount++;
+            }
           }
         }
       }
-      // remove self from count
-      this.items[x][y].neighborCount--;
     });
     print(this.items);
   };
