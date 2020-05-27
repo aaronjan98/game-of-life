@@ -9,15 +9,7 @@ class Cell {
     this.alive = false;
   };
 
-  reanimate = () => {
-    this.alive = true;
-  };
-
   toggle = () => {
     this.alive = !this.alive;
-  };
-
-  age = () => {
-    this.age++;
   };
 }

@@ -8,6 +8,7 @@ let isRunning = false;
 function setup() {
   cnv = createCanvas(windowWidth / 2, windowHeight / 2);
   cnv.parent("canvas");
+  colorMode(HSB);
   grid = new Grid(width, height);
   grid.make2DArray(grid.items);
   grid.make2DArray(grid.next);

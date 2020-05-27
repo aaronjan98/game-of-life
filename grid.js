@@ -27,7 +27,8 @@ class Grid {
   renderGrid = () => {
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
-        fill(100);
+        // color cell by age (red = new, blue = old)
+        fill(this.items[x][y].age, 100, 100);
         rect(w, h, this.resolution);
       }
       // this.debug(x, y, w, h);
@@ -90,6 +91,16 @@ class Grid {
       // reproduction
       else if (!cell.alive && cell.neighborCount === 3) {
         this.next[x][y] = new Cell(true);
+      }
+      // lives on
+      else {
+        // only advance age once every 5 frames
+        if (frameCount % 5 === 0) {
+          // clamp age at 180 (prevent it from going back towards red)
+          if (this.next[x][y].age <= 180) {
+            this.next[x][y].age += 1;
+          }
+        }
       }
     });
 
