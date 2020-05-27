@@ -29,6 +29,14 @@ function draw() {
   }
 }
 
+function mousePressed() {
+  if (!isRunning) {
+    grid.clicked(mouseX, mouseY);
+    grid.renderGrid();
+    grid.countNeighbors();
+  }
+}
+
 function mouseDragged() {
   if (!isRunning) {
     // only run if mouse is within sketch bounds
