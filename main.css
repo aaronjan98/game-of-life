@@ -50,6 +50,7 @@ button {
   box-shadow: 0px 2px 6px var(--shadow);
   transition: 0.2s ease-out all;
   margin: 0.5rem;
+  min-width: 7rem;
 }
 
 button:hover {
