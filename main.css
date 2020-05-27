@@ -86,3 +86,91 @@ button:hover {
   font-size: 4rem;
   color: var(--nearblack);
 }
+
+
+/* slider styles */
+input[type="range"]#speed {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 7px 0;
+}
+input[type="range"]#speed:focus {
+  outline: none;
+}
+input[type="range"]#speed::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  background: #0f0f0f;
+  border-radius: 0px;
+  border: 0px solid rgba(1, 1, 1, 0);
+}
+input[type="range"]#speed::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #677781, 0px 0px 0px #73848f;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 0px;
+  background: var(--nearblack);
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -7px;
+}
+input[type="range"]#speed:focus::-webkit-slider-runnable-track {
+  background: #424242;
+}
+input[type="range"]#speed::-moz-range-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+  background: #0f0f0f;
+  border-radius: 0px;
+  border: 0px solid rgba(1, 1, 1, 0);
+}
+input[type="range"]#speed::-moz-range-thumb {
+  box-shadow: 0px 0px 0px #677781, 0px 0px 0px #73848f;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 0px;
+  background: var(--nearblack);
+  cursor: pointer;
+}
+input[type="range"]#speed::-ms-track {
+  width: 100%;
+  height: 1px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type="range"]#speed::-ms-fill-lower {
+  background: #000000;
+  border: 0px solid rgba(1, 1, 1, 0);
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+}
+input[type="range"]#speed::-ms-fill-upper {
+  background: #0f0f0f;
+  border: 0px solid rgba(1, 1, 1, 0);
+  border-radius: 0px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
+}
+input[type="range"]#speed::-ms-thumb {
+  box-shadow: 0px 0px 0px #677781, 0px 0px 0px #73848f;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 15px;
+  border-radius: 0px;
+  background: var(--nearblack);
+  cursor: pointer;
+  height: 1px;
+}
+input[type="range"]#speed:focus::-ms-fill-lower {
+  background: #0f0f0f;
+}
+input[type="range"]#speed:focus::-ms-fill-upper {
+  background: #424242;
+}
