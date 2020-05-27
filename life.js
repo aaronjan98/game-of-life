@@ -35,3 +35,15 @@ function windowResized() {
   grid.resize(width, height);
   grid.renderGrid();
 }
+
+// DOM stuff
+const playBtn = document.querySelector("#playback");
+
+playBtn.addEventListener("click", () => {
+  isRunning = !isRunning;
+  if (isRunning) {
+    playBtn.textContent = "stop";
+  } else {
+    playBtn.textContent = "start";
+  }
+});
