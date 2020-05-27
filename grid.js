@@ -77,6 +77,7 @@ class Grid {
 
   // @TODO account for cell ages
   runSimulation = () => {
+    this.countNeighbors();
     this.next = this.items;
     this.loopRunner((x, y, w, h) => {
       let cell = this.items[x][y];
@@ -96,6 +97,7 @@ class Grid {
     });
 
     this.items = this.next;
+    this.renderGrid();
   };
 
   resize = (w, h) => {

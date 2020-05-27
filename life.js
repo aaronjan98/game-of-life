@@ -17,9 +17,7 @@ function setup() {
 
 function draw() {
   if (isRunning) {
-    grid.countNeighbors();
     grid.runSimulation();
-    grid.renderGrid();
   }
 }
 
