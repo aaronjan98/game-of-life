@@ -47,6 +47,7 @@ function mouseReleased() {
 
 function windowResized() {
   resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
+  background(0);
   grid.resize(width, height);
   grid.renderGrid();
 }
