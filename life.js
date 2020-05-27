@@ -59,6 +59,9 @@ playBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   grid.clear();
+  isRunning = false;
+  playBtn.textContent = "start";
+  generation.textContent = 0;
 });
 
 reseed.addEventListener("click", () => {
