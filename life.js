@@ -44,6 +44,7 @@ function windowResized() {
 // DOM stuff
 const playBtn = document.querySelector("#playback");
 const clearBtn = document.querySelector("#clear");
+const reseed = document.querySelector("#reseed");
 const speedSlider = document.querySelector("#speed");
 const generation = document.querySelector("#generation");
 
@@ -58,6 +59,10 @@ playBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   grid.clear();
+});
+
+reseed.addEventListener("click", () => {
+  grid.reseed();
 });
 
 // set initial speed
