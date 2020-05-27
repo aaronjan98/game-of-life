@@ -13,8 +13,8 @@ function setup() {
   grid.make2DArray(grid.next);
   grid.populateGrid();
   grid.countNeighbors();
-  grid.renderGrid();
   background(0);
+  grid.renderGrid();
 }
 
 function draw() {
