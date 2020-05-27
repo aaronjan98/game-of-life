@@ -12,12 +12,7 @@ function setup() {
   startingResolution = (windowWidth / 2) * (windowHeight / 2);
   colorMode(HSB);
   grid = new Grid(width, height);
-  grid.make2DArray(grid.items);
-  grid.make2DArray(grid.next);
-  grid.populateGrid();
-  grid.countNeighbors();
-  background(0);
-  grid.renderGrid();
+  grid.init();
 }
 
 function draw() {

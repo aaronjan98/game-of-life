@@ -9,6 +9,15 @@ class Grid {
     this.next = new Array(this.cols);
   }
 
+  init = () => {
+    this.make2DArray(this.items);
+    this.make2DArray(this.next);
+    this.populateGrid();
+    this.countNeighbors();
+    background(0);
+    this.renderGrid();
+  };
+
   make2DArray = (arr) => {
     for (let x = 0; x < this.cols; x++) {
       arr[x] = new Array(this.rows);
