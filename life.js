@@ -4,10 +4,12 @@ let grid;
 let cnv;
 let speed = null; // higher number = slower render speed
 let isRunning = false;
+let startingResolution;
 
 function setup() {
   cnv = createCanvas(windowWidth / 2, windowHeight / 2);
   cnv.parent("canvas");
+  startingResolution = (windowWidth / 2) * (windowHeight / 2);
   colorMode(HSB);
   grid = new Grid(width, height);
   grid.make2DArray(grid.items);
@@ -55,9 +57,13 @@ function mouseReleased() {
 }
 
 function windowResized() {
-  resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
-  background(0);
-  grid.resize(width, height);
+  // don't allow canvas to grow beyond initial size - prevents array out of bounds errors
+  // it could be possible to recreate the arrays on resize (larger than initial size) for a more complete fix
+  if ((windowWidth / 2) * (windowHeight / 2) < startingResolution) {
+    resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
+    background(0);
+    grid.resize(width, height);
+  }
   grid.renderGrid();
 }
 
