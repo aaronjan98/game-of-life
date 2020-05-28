@@ -12,7 +12,8 @@ function setup() {
   cnv.parent("canvas");
   background(200);
   startingResolution = (windowWidth / 2) * (windowHeight / 2);
-  grid = new Grid(width, height);
+  grid = new Grid(width, height, 6);
+  lighting(); // need to light initial frame or else everything will be black
   grid.init("3D");
 
   easycam = new Dw.EasyCam(this._renderer, {
@@ -23,9 +24,7 @@ function setup() {
 function draw() {
   if (!isRunning) {
     easycam.removeMouseListeners();
-    background(200);
     lighting();
-    grid.render3D();
   } else {
     easycam.attachMouseListeners();
     lighting();
@@ -34,7 +33,6 @@ function draw() {
       if (blurAmount < 245) {
         blur(blurAmount);
       } else {
-        colorMode(RGB);
         background(200);
       }
 
@@ -49,6 +47,8 @@ function draw() {
 function mousePressed() {
   if (!isRunning) {
     grid.clicked(mouseX, mouseY);
+    background(200);
+    lighting();
     grid.render3D();
     grid.countNeighbors();
   }
@@ -59,6 +59,8 @@ function mouseDragged() {
     // only run if mouse is within sketch bounds
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
       grid.clicked(mouseX, mouseY);
+      background(200);
+      lighting();
       grid.render3D();
     }
   }
@@ -76,7 +78,7 @@ function windowResized() {
   // it could be possible to recreate the arrays on resize (larger than initial size) for a more complete fix
   if ((windowWidth / 2) * (windowHeight / 2) < startingResolution) {
     resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
-    background(255);
+    background(200);
     grid.resize(width, height);
   }
   easycam.setViewport([0, 0, width, height]);
@@ -84,7 +86,6 @@ function windowResized() {
 }
 
 function blur(amount) {
-  colorMode(RGB);
   fill(200, amount);
   noStroke();
   push();
@@ -95,11 +96,9 @@ function blur(amount) {
   // such that it's always perpendicular to the camera.
   rect(-width * 16, -height * 16, width * 32, height * 32);
   pop();
-  colorMode(HSB);
 }
 
 function lighting() {
-  colorMode(RGB);
   let locX = mouseX - height / 2;
   let locY = mouseY - width / 2;
 
@@ -110,7 +109,6 @@ function lighting() {
 
   pointLight(175, 175, 175, locX, locY, 250);
   pointLight(175, 175, 175, locX, locY, -250);
-  colorMode(HSB);
 }
 
 // DOM stuff
@@ -132,7 +130,7 @@ playBtn.addEventListener("click", () => {
 
 clearBtn.addEventListener("click", () => {
   grid.clear("3D");
-  background(255);
+  background(200);
   isRunning = false;
   playBtn.textContent = "start";
   generation.textContent = 0;
@@ -140,7 +138,7 @@ clearBtn.addEventListener("click", () => {
 
 reseed.addEventListener("click", () => {
   clear("3D");
-  background(255);
+  background(200);
   grid.reseed("3D");
 });
 

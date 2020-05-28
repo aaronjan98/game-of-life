@@ -1,6 +1,6 @@
 class Grid {
-  constructor(width, height) {
-    this.resolution = 5;
+  constructor(width, height, resolution = 5) {
+    this.resolution = resolution;
     this.width = width;
     this.height = height;
     this.cols = floor(this.width / this.resolution);
@@ -10,7 +10,10 @@ class Grid {
   }
 
   init = (dimensions) => {
-    this.setMinimumDensity();
+    // ignore minimumDensity for 3D mode
+    if (dimensions !== "3D") {
+      this.setMinimumDensity();
+    }
     this.make2DArray(this.items);
     this.make2DArray(this.next);
     this.populateGrid();
