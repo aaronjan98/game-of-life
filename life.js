@@ -32,17 +32,18 @@ function draw() {
 function mousePressed() {
   if (!isRunning) {
     grid.clicked(mouseX, mouseY);
-    grid.renderGrid();
+    grid.render();
     grid.countNeighbors();
   }
 }
 
 function mouseDragged() {
+  // background(0);
   if (!isRunning) {
     // only run if mouse is within sketch bounds
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
       grid.clicked(mouseX, mouseY);
-      grid.renderGrid();
+      grid.render();
     }
   }
 }
@@ -62,7 +63,7 @@ function windowResized() {
     background(0);
     grid.resize(width, height);
   }
-  grid.renderGrid();
+  grid.render();
 }
 
 function blur(amount) {

@@ -9,14 +9,19 @@ class Grid {
     this.next = new Array(this.cols);
   }
 
-  init = () => {
+  init = (dimensions) => {
     this.setMinimumDensity();
     this.make2DArray(this.items);
     this.make2DArray(this.next);
     this.populateGrid();
     this.countNeighbors();
-    background(0);
-    this.renderGrid();
+    if (dimensions === "3D") {
+      background(255);
+      this.render3D();
+    } else {
+      background(0);
+      this.render();
+    }
   };
 
   setMinimumDensity = () => {
@@ -42,7 +47,7 @@ class Grid {
     });
   };
 
-  renderGrid = () => {
+  render = () => {
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
         // color cell by age (red = new, blue = old)
@@ -50,6 +55,19 @@ class Grid {
         rect(w, h, this.resolution);
       }
       // this.debug(x, y, w, h);
+    });
+  };
+
+  render3D = () => {
+    this.loopRunner((x, y, w, h) => {
+      if (this.items[x][y].alive) {
+        // color cell by age (red = new, blue = old)
+        fill(this.items[x][y].age, 100, 100);
+        push();
+        translate(w - width / 2, h - height / 2);
+        box(this.resolution, this.resolution, this.items[x][y].age);
+        pop();
+      }
     });
   };
 
@@ -92,7 +110,7 @@ class Grid {
     });
   };
 
-  runSimulation = () => {
+  runSimulation = (dimensions) => {
     this.countNeighbors();
     this.next = this.items;
     this.loopRunner((x, y, w, h) => {
@@ -123,7 +141,7 @@ class Grid {
     });
 
     this.items = this.next;
-    this.renderGrid();
+    dimensions === "3D" ? this.render3D() : this.render();
   };
 
   resize = (w, h) => {
@@ -133,17 +151,17 @@ class Grid {
     this.rows = floor(this.height / this.resolution);
   };
 
-  clear = () => {
+  clear = (dimensions) => {
     this.loopRunner((x, y) => {
       this.items[x][y].kill();
     });
-    this.renderGrid();
+    dimensions === "3D" ? this.render3D() : this.render();
   };
 
-  reseed = () => {
+  reseed = (dimensions) => {
     this.clear();
     this.populateGrid();
-    this.renderGrid();
+    dimensions === "3D" ? this.render3D() : this.render();
   };
 
   loopRunner = (callback) => {
