@@ -22,10 +22,12 @@ function setup() {
 
 function draw() {
   if (!isRunning) {
+    easycam.removeMouseListeners();
     background(200);
     lighting();
     grid.render3D();
   } else {
+    easycam.attachMouseListeners();
     lighting();
     if (frameCount % speed === 0) {
       // ignore blur unless sufficiently high (confusing but low values = more blur)
@@ -44,31 +46,30 @@ function draw() {
   }
 }
 
-// function mousePressed() {
-//   if (!isRunning) {
-//     grid.clicked(mouseX, mouseY);
-//     grid.render3D();
-//     grid.countNeighbors();
-//   }
-// }
+function mousePressed() {
+  if (!isRunning) {
+    grid.clicked(mouseX, mouseY);
+    grid.render3D();
+    grid.countNeighbors();
+  }
+}
 
-// function mouseDragged() {
-//   // background(255);
-//   if (!isRunning) {
-//     // only run if mouse is within sketch bounds
-//     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
-//       grid.clicked(mouseX, mouseY);
-//       grid.render3D();
-//     }
-//   }
-// }
+function mouseDragged() {
+  if (!isRunning) {
+    // only run if mouse is within sketch bounds
+    if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
+      grid.clicked(mouseX, mouseY);
+      grid.render3D();
+    }
+  }
+}
 
-// function mouseReleased() {
-//   if (!isRunning) {
-//     // don't bother counting neighbors until user drawing is complete
-//     grid.countNeighbors();
-//   }
-// }
+function mouseReleased() {
+  if (!isRunning) {
+    // don't bother counting neighbors until user drawing is complete
+    grid.countNeighbors();
+  }
+}
 
 function windowResized() {
   // don't allow canvas to grow beyond initial size - prevents array out of bounds errors
