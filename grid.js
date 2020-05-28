@@ -16,7 +16,7 @@ class Grid {
     this.populateGrid();
     this.countNeighbors();
     if (dimensions === "3D") {
-      background(255);
+      background(200);
       this.render3D();
     } else {
       background(0);
@@ -59,16 +59,19 @@ class Grid {
   };
 
   render3D = () => {
+    colorMode(HSB);
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
+        shininess(100);
         // color cell by age (red = new, blue = old)
-        fill(this.items[x][y].age, 100, 100);
+        specularMaterial(this.items[x][y].age, 100, 100);
         push();
         translate(w - width / 2, h - height / 2);
-        box(this.resolution, this.resolution, this.items[x][y].age);
+        box(this.resolution, this.resolution, this.items[x][y].age * 2);
         pop();
       }
     });
+    colorMode(RGB);
   };
 
   clicked = (mouseX, mouseY) => {

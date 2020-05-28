@@ -10,9 +10,9 @@ let blurAmount = 255;
 function setup() {
   cnv = createCanvas(windowWidth / 2, windowHeight / 2, WEBGL);
   cnv.parent("canvas");
-  background(255);
+  background(200);
   startingResolution = (windowWidth / 2) * (windowHeight / 2);
-  colorMode(HSB);
+  // colorMode(HSB);
   grid = new Grid(width, height);
   grid.init("3D");
 
@@ -24,16 +24,20 @@ function setup() {
 
 function draw() {
   if (!isRunning) {
-    background(255);
+    background(200);
+    lighting();
     grid.render3D();
   } else {
+    lighting();
     if (frameCount % speed === 0) {
-      if (blurAmount > 10) {
-        background(255);
-      } else {
+      // ignore blur unless sufficiently high (confusing but low values = more blur)
+      if (blurAmount < 245) {
         blur(blurAmount);
+      } else {
+        colorMode(RGB);
+        background(200);
       }
-      colorMode(HSB);
+
       stroke(0);
       grid.runSimulation("3D");
       let gen = generation.textContent;
@@ -82,16 +86,32 @@ function windowResized() {
 
 function blur(amount) {
   colorMode(RGB);
-  fill(255, amount);
+  fill(200, amount);
   noStroke();
   push();
   // translate "blur" rect to the max height/depth of a given cell
-  translate(0, 0, -270);
+  translate(0, 0, -271);
   // draw the background rect much larger than intrinsic canvas size to acct for zooming out...to an extent
   // @TODO convert camera rotation quaternion to euler angle and offset background rect
   // such that it's always perpendicular to the camera.
   rect(-width * 16, -height * 16, width * 32, height * 32);
   pop();
+  colorMode(HSB);
+}
+
+function lighting() {
+  colorMode(RGB);
+  let locX = mouseX - height / 2;
+  let locY = mouseY - width / 2;
+
+  ambientLight(100);
+
+  directionalLight(175, 175, 175, -locX, -locY, -10);
+  directionalLight(175, 175, 175, locX, locY, 10);
+
+  pointLight(175, 175, 175, locX, locY, 250);
+  pointLight(175, 175, 175, locX, locY, -250);
+  colorMode(HSB);
 }
 
 function easyCamFix() {
