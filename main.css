@@ -64,19 +64,23 @@ button:hover {
 .controls-container {
   display: flex;
   justify-content: center;
+  padding: 0 16.5% 0 16.5%;
 }
 
 .controls {
   display: flex;
   flex-direction: column;
+  margin-top: 2rem;
 }
 
 .buttons {
   display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .header {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .header h3 {
@@ -87,6 +91,23 @@ button:hover {
 .header h1 {
   font-size: 4rem;
   color: var(--nearblack);
+}
+
+.info {
+  margin: 2rem 0 2rem 0;
+}
+
+.info h3 {
+  font-size: 2rem;
+}
+
+.info p {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.bold {
+  font-weight: bolder;
 }
 
 /* slider styles */
@@ -174,4 +195,12 @@ input[type="range"].slider:focus::-ms-fill-lower {
 }
 input[type="range"].slider:focus::-ms-fill-upper {
   background: #424242;
+}
+
+/* media queries */
+
+@media (max-width: 500px) {
+  .controls input[type="range"].slider {
+    margin-bottom: 2rem;
+  }
 }
