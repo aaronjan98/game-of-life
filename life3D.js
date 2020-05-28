@@ -12,13 +12,12 @@ function setup() {
   cnv.parent("canvas");
   background(200);
   startingResolution = (windowWidth / 2) * (windowHeight / 2);
-  // colorMode(HSB);
   grid = new Grid(width, height);
   grid.init("3D");
 
   easyCamFix();
   easycam = new Dw.EasyCam(this._renderer, {
-    distance: 425,
+    distance: 400,
   });
 }
 
