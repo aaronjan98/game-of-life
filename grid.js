@@ -62,6 +62,7 @@ class Grid {
         mouseY > h &&
         mouseY < h + this.resolution
       ) {
+        this.items[x][y].kill();
         this.items[x][y].toggle();
       }
     });
@@ -91,7 +92,6 @@ class Grid {
     });
   };
 
-  // @TODO account for cell ages
   runSimulation = () => {
     this.countNeighbors();
     this.next = this.items;

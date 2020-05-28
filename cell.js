@@ -7,6 +7,7 @@ class Cell {
 
   kill = () => {
     this.alive = false;
+    this.age = 0;
   };
 
   toggle = () => {
