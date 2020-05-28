@@ -40,6 +40,15 @@ label {
   font-size: 1.2rem;
 }
 
+a {
+  text-decoration: none;
+  color: var(--lightgrey);
+}
+
+a:hover h3 {
+  color: var(--darkgrey);
+}
+
 button {
   font-family: "Fira Code", monospace;
   font-weight: lighter;
@@ -80,7 +89,9 @@ button:hover {
 }
 
 .header {
+  display: flex;
   padding: 1rem;
+  justify-content: space-between;
 }
 
 .header h3 {

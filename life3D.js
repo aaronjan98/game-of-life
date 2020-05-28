@@ -8,21 +8,36 @@ let startingResolution;
 let blurAmount = 255;
 
 function setup() {
-  cnv = createCanvas(windowWidth / 2, windowHeight / 2);
+  cnv = createCanvas(windowWidth / 2, windowHeight / 2, WEBGL);
   cnv.parent("canvas");
+  background(200);
   startingResolution = (windowWidth / 2) * (windowHeight / 2);
-  colorMode(HSB);
-  grid = new Grid(width, height);
-  grid.init();
+  grid = new Grid(width, height, 6);
+  lighting(); // need to light initial frame or else everything will be black
+  grid.init("3D");
+
+  easycam = new Dw.EasyCam(this._renderer, {
+    distance: 400,
+  });
 }
 
 function draw() {
-  if (isRunning) {
+  if (!isRunning) {
+    easycam.removeMouseListeners();
+    lighting();
+  } else {
+    easycam.attachMouseListeners();
+    lighting();
     if (frameCount % speed === 0) {
-      blur(blurAmount);
-      colorMode(HSB);
+      // ignore blur unless sufficiently high (confusing but low values = more blur)
+      if (blurAmount < 245) {
+        blur(blurAmount);
+      } else {
+        background(200);
+      }
+
       stroke(0);
-      grid.runSimulation();
+      grid.runSimulation("3D");
       let gen = generation.textContent;
       generation.textContent = Number(gen) + 1;
     }
@@ -32,18 +47,21 @@ function draw() {
 function mousePressed() {
   if (!isRunning) {
     grid.clicked(mouseX, mouseY);
-    grid.render();
+    background(200);
+    lighting();
+    grid.render3D();
     grid.countNeighbors();
   }
 }
 
 function mouseDragged() {
-  // background(0);
   if (!isRunning) {
     // only run if mouse is within sketch bounds
     if (mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height) {
       grid.clicked(mouseX, mouseY);
-      grid.render();
+      background(200);
+      lighting();
+      grid.render3D();
     }
   }
 }
@@ -60,17 +78,37 @@ function windowResized() {
   // it could be possible to recreate the arrays on resize (larger than initial size) for a more complete fix
   if ((windowWidth / 2) * (windowHeight / 2) < startingResolution) {
     resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
-    background(0);
+    background(200);
     grid.resize(width, height);
   }
-  grid.render();
+  easycam.setViewport([0, 0, width, height]);
+  grid.render3D();
 }
 
 function blur(amount) {
-  colorMode(RGB);
-  fill(0, amount);
+  fill(200, amount);
   noStroke();
-  rect(0, 0, width, height);
+  push();
+  // translate "blur" rect to the max height/depth of a given cell
+  translate(0, 0, -271);
+  // draw the background rect much larger than intrinsic canvas size to acct for zooming out...to an extent
+  // @TODO convert camera rotation quaternion to euler angle and offset background rect
+  // such that it's always perpendicular to the camera.
+  rect(-width * 16, -height * 16, width * 32, height * 32);
+  pop();
+}
+
+function lighting() {
+  let locX = mouseX - height / 2;
+  let locY = mouseY - width / 2;
+
+  ambientLight(100);
+
+  directionalLight(175, 175, 175, -locX, -locY, -10);
+  directionalLight(175, 175, 175, locX, locY, 10);
+
+  pointLight(175, 175, 175, locX, locY, 250);
+  pointLight(175, 175, 175, locX, locY, -250);
 }
 
 // DOM stuff
@@ -91,17 +129,17 @@ playBtn.addEventListener("click", () => {
 });
 
 clearBtn.addEventListener("click", () => {
-  grid.clear();
-  background(0);
+  grid.clear("3D");
+  background(200);
   isRunning = false;
   playBtn.textContent = "start";
   generation.textContent = 0;
 });
 
 reseed.addEventListener("click", () => {
-  clear();
-  background(0);
-  grid.reseed();
+  clear("3D");
+  background(200);
+  grid.reseed("3D");
 });
 
 // set initial speed

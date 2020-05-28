@@ -1,6 +1,6 @@
 class Grid {
-  constructor(width, height) {
-    this.resolution = 5;
+  constructor(width, height, resolution = 5) {
+    this.resolution = resolution;
     this.width = width;
     this.height = height;
     this.cols = floor(this.width / this.resolution);
@@ -9,14 +9,22 @@ class Grid {
     this.next = new Array(this.cols);
   }
 
-  init = () => {
-    this.setMinimumDensity();
+  init = (dimensions) => {
+    // ignore minimumDensity for 3D mode
+    if (dimensions !== "3D") {
+      this.setMinimumDensity();
+    }
     this.make2DArray(this.items);
     this.make2DArray(this.next);
     this.populateGrid();
     this.countNeighbors();
-    background(0);
-    this.renderGrid();
+    if (dimensions === "3D") {
+      background(200);
+      this.render3D();
+    } else {
+      background(0);
+      this.render();
+    }
   };
 
   setMinimumDensity = () => {
@@ -42,7 +50,7 @@ class Grid {
     });
   };
 
-  renderGrid = () => {
+  render = () => {
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
         // color cell by age (red = new, blue = old)
@@ -51,6 +59,22 @@ class Grid {
       }
       // this.debug(x, y, w, h);
     });
+  };
+
+  render3D = () => {
+    colorMode(HSB);
+    this.loopRunner((x, y, w, h) => {
+      if (this.items[x][y].alive) {
+        shininess(100);
+        // color cell by age (red = new, blue = old)
+        specularMaterial(this.items[x][y].age, 100, 100);
+        push();
+        translate(w - width / 2, h - height / 2);
+        box(this.resolution, this.resolution, this.items[x][y].age * 2);
+        pop();
+      }
+    });
+    colorMode(RGB);
   };
 
   clicked = (mouseX, mouseY) => {
@@ -92,7 +116,7 @@ class Grid {
     });
   };
 
-  runSimulation = () => {
+  runSimulation = (dimensions) => {
     this.countNeighbors();
     this.next = this.items;
     this.loopRunner((x, y, w, h) => {
@@ -123,7 +147,7 @@ class Grid {
     });
 
     this.items = this.next;
-    this.renderGrid();
+    dimensions === "3D" ? this.render3D() : this.render();
   };
 
   resize = (w, h) => {
@@ -133,17 +157,17 @@ class Grid {
     this.rows = floor(this.height / this.resolution);
   };
 
-  clear = () => {
+  clear = (dimensions) => {
     this.loopRunner((x, y) => {
       this.items[x][y].kill();
     });
-    this.renderGrid();
+    dimensions === "3D" ? this.render3D() : this.render();
   };
 
-  reseed = () => {
+  reseed = (dimensions) => {
     this.clear();
     this.populateGrid();
-    this.renderGrid();
+    dimensions === "3D" ? this.render3D() : this.render();
   };
 
   loopRunner = (callback) => {
