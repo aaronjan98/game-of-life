@@ -5,6 +5,7 @@ let cnv;
 let speed = null; // higher number = slower render speed
 let isRunning = false;
 let startingResolution;
+let blurAmount = 255;
 
 function setup() {
   cnv = createCanvas(windowWidth / 2, windowHeight / 2);
@@ -18,7 +19,9 @@ function setup() {
 function draw() {
   if (isRunning) {
     if (frameCount % speed === 0) {
-      background(0);
+      blur(blurAmount);
+      colorMode(HSB);
+      stroke(0);
       grid.runSimulation();
       let gen = generation.textContent;
       generation.textContent = Number(gen) + 1;
@@ -62,12 +65,20 @@ function windowResized() {
   grid.renderGrid();
 }
 
+function blur(amount) {
+  colorMode(RGB);
+  fill(0, amount);
+  noStroke();
+  rect(0, 0, width, height);
+}
+
 // DOM stuff
 const playBtn = document.querySelector("#playback");
 const clearBtn = document.querySelector("#clear");
 const reseed = document.querySelector("#reseed");
 const speedSlider = document.querySelector("#speed");
 const generation = document.querySelector("#generation");
+const blurSlider = document.querySelector("#blur");
 
 playBtn.addEventListener("click", () => {
   isRunning = !isRunning;
@@ -99,4 +110,8 @@ speed = 61 - speedSlider.value;
 
 speedSlider.addEventListener("input", (e) => {
   speed = 61 - e.target.value;
+});
+
+blurSlider.addEventListener("input", (e) => {
+  blurAmount = 260 - Number(e.target.value);
 });
