@@ -17,7 +17,7 @@ function setup() {
   grid = new Grid(width, height, 8);
 
   easycam = new Dw.EasyCam(this._renderer, {
-    distance: 400,
+    distance: 420,
   });
 
   lighting(); // need to light initial frame or else everything will be black
