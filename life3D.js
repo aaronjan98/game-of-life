@@ -6,6 +6,7 @@ let speed = null; // higher number = slower render speed
 let isRunning = false;
 let startingResolution;
 let blurAmount = 255;
+let camListenersActive = false;
 
 function setup() {
   cnv = createCanvas(windowWidth / 2, windowHeight / 2, WEBGL);
@@ -26,7 +27,10 @@ function draw() {
     easycam.removeMouseListeners();
     lighting();
   } else {
-    easycam.attachMouseListeners();
+    if (!camListenersActive) {
+      easycam.attachMouseListeners();
+      camListenersActive = false;
+    }
     lighting();
     if (frameCount % speed === 0) {
       // ignore blur unless sufficiently high (confusing but low values = more blur)
