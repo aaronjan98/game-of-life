@@ -7,22 +7,31 @@ let isRunning = false;
 let startingResolution;
 let blurAmount = 255;
 let camListenersActive = false;
+let firstFrameExecuted = false;
 
 function setup() {
-  cnv = createCanvas(windowWidth / 2, windowHeight / 2, WEBGL);
+  cnv = createCanvas(windowWidth, windowHeight * 0.5, WEBGL);
   cnv.parent("canvas");
   background(200);
-  startingResolution = (windowWidth / 2) * (windowHeight / 2);
-  grid = new Grid(width, height, 6);
-  lighting(); // need to light initial frame or else everything will be black
-  grid.init("3D");
+  startingResolution = windowWidth * (windowHeight * 0.5);
+  grid = new Grid(width, height, 8);
 
   easycam = new Dw.EasyCam(this._renderer, {
     distance: 400,
   });
+
+  lighting(); // need to light initial frame or else everything will be black
+  grid.init("3D");
 }
 
 function draw() {
+  if (!firstFrameExecuted) {
+    background(200);
+    lighting();
+    grid.render3D();
+    firstFrameExecuted = true;
+  }
+
   if (!isRunning) {
     easycam.removeMouseListeners();
     lighting();
@@ -80,8 +89,8 @@ function mouseReleased() {
 function windowResized() {
   // don't allow canvas to grow beyond initial size - prevents array out of bounds errors
   // it could be possible to recreate the arrays on resize (larger than initial size) for a more complete fix
-  if ((windowWidth / 2) * (windowHeight / 2) < startingResolution) {
-    resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
+  if (windowWidth * (windowHeight / 2) < startingResolution) {
+    resizeCanvas(windowWidth, floor(windowHeight * 0.5));
     background(200);
     grid.resize(width, height);
   }

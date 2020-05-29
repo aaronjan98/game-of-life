@@ -18,10 +18,7 @@ class Grid {
     this.make2DArray(this.next);
     this.populateGrid();
     this.countNeighbors();
-    if (dimensions === "3D") {
-      background(200);
-      this.render3D();
-    } else {
+    if (dimensions !== "3D") {
       background(0);
       this.render();
     }
