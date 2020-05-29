@@ -53,7 +53,7 @@ class Grid {
         // color cell by age (red (new) --> purple (old))
         const hue = this.clamp(this.items[x][y].age * 0.25, 0, 270);
         const intensity = this.clamp(this.items[x][y].age * 0.5 + 10, 0, 100);
-        fill(hue, intensity, intensity + 10);
+        fill(hue, intensity, intensity + 20);
         rect(w, h, this.resolution);
       }
       // this.debug(x, y, w, h);
@@ -67,7 +67,7 @@ class Grid {
         shininess(100);
         const hue = this.clamp(this.items[x][y].age, 0, 270);
         const intensity = this.clamp(this.items[x][y].age * 0.5 + 10, 0, 100);
-        specularMaterial(hue, intensity, intensity + 10);
+        specularMaterial(hue, intensity, intensity + 20);
         push();
         translate(w - width / 2, h - height / 2);
         box(this.resolution, this.resolution, this.items[x][y].age * 0.5);
