@@ -50,8 +50,9 @@ class Grid {
   render = () => {
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
-        // color cell by age (red = new, blue = old)
-        fill(this.items[x][y].age, 100, 100);
+        // color cell by age (red (new) --> purple (old))
+        const hue = this.clamp(this.items[x][y].age, 0, 270);
+        fill(hue, 100, 100);
         rect(w, h, this.resolution);
       }
       // this.debug(x, y, w, h);
@@ -63,11 +64,11 @@ class Grid {
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
         shininess(100);
-        // color cell by age (red = new, blue = old)
-        specularMaterial(this.items[x][y].age, 100, 100);
+        const hue = this.clamp(this.items[x][y].age, 0, 270);
+        specularMaterial(hue, 100, 100);
         push();
         translate(w - width / 2, h - height / 2);
-        box(this.resolution, this.resolution, this.items[x][y].age * 2);
+        box(this.resolution, this.resolution, this.items[x][y].age * 0.5);
         pop();
       }
     });
@@ -133,13 +134,7 @@ class Grid {
       }
       // lives on
       else {
-        // only advance age once every 5 frames (otherwise color animation is too fast)
-        if (frameCount % 5 === 0) {
-          // clamp age at 270 (prevent it from going back towards red)
-          if (this.next[x][y].age <= 270) {
-            this.next[x][y].age += 1;
-          }
-        }
+        this.next[x][y].age += 1;
       }
     });
 
@@ -165,6 +160,16 @@ class Grid {
     this.clear();
     this.populateGrid();
     dimensions === "3D" ? this.render3D() : this.render();
+  };
+
+  clamp = (value, min, max) => {
+    if (value < min) {
+      value = min;
+    } else if (value > max) {
+      value = max;
+    }
+
+    return value;
   };
 
   loopRunner = (callback) => {
