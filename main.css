@@ -33,6 +33,7 @@ body {
 h2 {
   font-size: 3rem;
   text-align: center;
+  margin-bottom: 0.5rem;
 }
 
 label {
@@ -102,6 +103,7 @@ button:hover {
 .header h1 {
   font-size: 4rem;
   color: var(--nearblack);
+  margin: -5px 0 0 0;
 }
 
 .info {
@@ -110,6 +112,7 @@ button:hover {
 
 .info h3 {
   font-size: 2rem;
+  margin-bottom: 0.5rem;
 }
 
 .info p {
@@ -136,7 +139,6 @@ input[type="range"].slider::-webkit-slider-runnable-track {
   cursor: pointer;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
   background: #0f0f0f;
-  border-radius: 0px;
   border: 0px solid rgba(1, 1, 1, 0);
 }
 input[type="range"].slider::-webkit-slider-thumb {
@@ -144,7 +146,6 @@ input[type="range"].slider::-webkit-slider-thumb {
   border: 0px solid #000000;
   height: 15px;
   width: 15px;
-  border-radius: 0px;
   background: var(--nearblack);
   cursor: pointer;
   -webkit-appearance: none;
@@ -159,7 +160,6 @@ input[type="range"].slider::-moz-range-track {
   cursor: pointer;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
   background: #0f0f0f;
-  border-radius: 0px;
   border: 0px solid rgba(1, 1, 1, 0);
 }
 input[type="range"].slider::-moz-range-thumb {
@@ -167,7 +167,6 @@ input[type="range"].slider::-moz-range-thumb {
   border: 0px solid #000000;
   height: 15px;
   width: 15px;
-  border-radius: 0px;
   background: var(--nearblack);
   cursor: pointer;
 }
@@ -182,13 +181,11 @@ input[type="range"].slider::-ms-track {
 input[type="range"].slider::-ms-fill-lower {
   background: #000000;
   border: 0px solid rgba(1, 1, 1, 0);
-  border-radius: 0px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
 }
 input[type="range"].slider::-ms-fill-upper {
   background: #0f0f0f;
   border: 0px solid rgba(1, 1, 1, 0);
-  border-radius: 0px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0px 0px 1px rgba(13, 13, 13, 0);
 }
 input[type="range"].slider::-ms-thumb {
@@ -196,7 +193,6 @@ input[type="range"].slider::-ms-thumb {
   border: 0px solid #000000;
   height: 15px;
   width: 15px;
-  border-radius: 0px;
   background: var(--nearblack);
   cursor: pointer;
   height: 1px;
@@ -213,5 +209,11 @@ input[type="range"].slider:focus::-ms-fill-upper {
 @media (max-width: 500px) {
   .controls input[type="range"].slider {
     margin-bottom: 2rem;
+  }
+}
+
+@media (min-height: 968px) {
+  .controls-container {
+    margin-top: 4rem;
   }
 }
