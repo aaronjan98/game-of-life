@@ -40,7 +40,7 @@ class Grid {
 
   populateGrid = () => {
     this.loopRunner((x, y) => {
-      let rand = floor(random(2));
+      let rand = floor(random(1.75));
       let alive;
       rand ? (alive = true) : (alive = false);
       this.items[x][y] = new Cell(alive);
