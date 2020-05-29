@@ -34,7 +34,7 @@ function draw() {
     lighting();
     if (frameCount % speed === 0) {
       // ignore blur unless sufficiently high (confusing but low values = more blur)
-      if (blurAmount < 245) {
+      if (blurAmount < 255) {
         blur(blurAmount);
       } else {
         background(200);
