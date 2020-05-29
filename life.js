@@ -8,11 +8,11 @@ let startingResolution;
 let blurAmount = 255;
 
 function setup() {
-  cnv = createCanvas(windowWidth / 2, windowHeight / 2);
+  cnv = createCanvas(windowWidth, windowHeight / 2);
   cnv.parent("canvas");
-  startingResolution = (windowWidth / 2) * (windowHeight / 2);
+  startingResolution = windowWidth * (windowHeight / 2);
   colorMode(HSB);
-  grid = new Grid(width, height);
+  grid = new Grid(width, height, 6);
   grid.init();
 }
 
@@ -58,8 +58,8 @@ function mouseReleased() {
 function windowResized() {
   // don't allow canvas to grow beyond initial size - prevents array out of bounds errors
   // it could be possible to recreate the arrays on resize (larger than initial size) for a more complete fix
-  if ((windowWidth / 2) * (windowHeight / 2) < startingResolution) {
-    resizeCanvas(floor(windowWidth * 0.5), floor(windowHeight * 0.5));
+  if (windowWidth * (windowHeight / 2) < startingResolution) {
+    resizeCanvas(windowWidth, floor(windowHeight * 0.5));
     background(0);
     grid.resize(width, height);
   }
