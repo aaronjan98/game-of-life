@@ -64,7 +64,7 @@ class Grid {
     colorMode(HSB);
     this.loopRunner((x, y, w, h) => {
       if (this.items[x][y].alive) {
-        shininess(100);
+        shininess(this.items[x][y].age * 0.25);
         const hue = this.clamp(this.items[x][y].age, 0, 270);
         const intensity = this.clamp(this.items[x][y].age * 0.5 + 10, 0, 100);
         specularMaterial(hue, intensity, intensity + 20);

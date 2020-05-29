@@ -117,11 +117,11 @@ function lighting() {
 
   ambientLight(100);
 
-  directionalLight(175, 175, 175, -locX, -locY, -10);
-  directionalLight(175, 175, 175, locX, locY, 10);
+  directionalLight(150, 150, 150, -locX, -locY, -100);
+  directionalLight(150, 150, 150, locX, locY, 100);
 
-  pointLight(175, 175, 175, locX, locY, 250);
-  pointLight(175, 175, 175, locX, locY, -250);
+  pointLight(200, 200, 200, locX, locY, 500);
+  pointLight(200, 200, 200, locX, locY, -500);
 }
 
 // DOM stuff
